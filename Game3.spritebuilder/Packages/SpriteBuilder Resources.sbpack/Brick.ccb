@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>1</integer>
+	<integer>4</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -50,9 +50,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
-			<false/>
+			<true/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -74,40 +74,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>2.62109375</real>
+					<real>5.828125</real>
 				</array>
 				<array>
-					<real>0.0</real>
-					<real>57</real>
+					<real>2.62109375</real>
+					<real>58.7109375</real>
 				</array>
 				<array>
-					<real>313</real>
-					<real>57</real>
+					<real>64.9296875</real>
+					<real>58.7109375</real>
 				</array>
 				<array>
-					<real>313</real>
-					<real>0.0</real>
+					<real>66.1015625</real>
+					<real>5.828125</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>313</real>
-						<real>0.0</real>
+						<real>66.1015625</real>
+						<real>5.828125</real>
 					</array>
 					<array>
-						<real>313</real>
-						<real>57</real>
+						<real>64.9296875</real>
+						<real>58.7109375</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>57</real>
+						<real>2.62109375</real>
+						<real>58.7109375</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
+						<real>2.62109375</real>
+						<real>5.828125</real>
 					</array>
 				</array>
 			</array>
@@ -143,8 +143,8 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.5</real>
-					<real>0.5</real>
+					<real>0.0</real>
+					<real>1</real>
 				</array>
 			</dict>
 			<dict>
@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>images/brick.png</string>
+					<string>images/wall256.png</string>
 				</array>
 			</dict>
 			<dict>

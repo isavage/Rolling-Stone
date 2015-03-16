@@ -3,7 +3,7 @@ import Foundation
 class GamePlay: CCNode, CCPhysicsCollisionDelegate {
     
     var _scrollSpeed : CGFloat = 80
-    var _heroSpeed : CGFloat = 100
+    var _heroSpeed : CGFloat = 120
     
     var _hero : CCSprite!
     var _pnode1 : CCPhysicsNode!
@@ -17,8 +17,8 @@ class GamePlay: CCNode, CCPhysicsCollisionDelegate {
     var _clouds : [CCSprite] = []
    
     var _bricks : [CCNode] = []
-    let _firstBrickPosx : CGFloat = 69
-    let _firstBrickPosy : CGFloat = 72
+    let _firstBrickPosx : CGFloat = 20
+    let _firstBrickPosy : CGFloat = 60
     
     var _sinceTouch : CCTime = 0
     
@@ -134,8 +134,8 @@ override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
     if (_gameOver == false) {
     // Touch action .. Checks continuous touches
     if in_the_air == false {
-    _hero.physicsBody.applyImpulse(ccp(600, 3000))
-    _hero.physicsBody.applyAngularImpulse(50000)
+    _hero.physicsBody.applyImpulse(ccp(100, 200))
+    _hero.physicsBody.applyAngularImpulse(10000)
     in_the_air = true
     }
    // _sinceTouch = 0
@@ -145,56 +145,68 @@ override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
 
 func spawnNewBrick() {
     
-    //var brick_pos_x : CGFloat!
-    //var brick_pos_y : CGFloat!
-
+    var prevBrickPosx : CGFloat!
+    var prevBrickPosy : CGFloat!
     
-    var prevBrickPosx = _firstBrickPosx
-    var prevBrickPosy = _firstBrickPosy
+    var size : CGSize = CCDirector.sharedDirector().viewSize()
+    println (size)
+    
+    var random_result = self.randomDistance()
+    
+    var brick_pos_x = _firstBrickPosx
+    var brick_pos_y = _firstBrickPosy
+    
+    var nbr_bricks = 3
+    
     if _bricks.count > 0 {
     prevBrickPosx = _bricks.last!.position.x
     prevBrickPosy = _bricks.last!.position.y
+        
+    brick_pos_x = prevBrickPosx + random_result.X
+    brick_pos_y = prevBrickPosy + random_result.Y
+        
+    nbr_bricks = Int(random_result.Count)-1
     }
     
-    let brick = CCBReader.load("Brick")
-    brick.scaleX = 0.45
-    brick.scaleY = 0.45
-    
-    var brick_pos_x = prevBrickPosx + self.randomDistance()[0]
-    var brick_pos_y = prevBrickPosy + self.randomDistance()[1]
-    
-    if brick_pos_y >= CGFloat(175) {
-        brick_pos_y = brick_pos_y - 50
+    var brick : [CCNode!] = []
+    for i in 0...nbr_bricks {
+    brick.append (CCBReader.load("Brick"))
     }
-    else if brick_pos_y <= 40 {
-        brick_pos_y = brick_pos_y + 30
+    
+    var i : CGFloat = 0
+    for sprite in brick{
+    sprite.position = ccp(brick_pos_x + (sprite.contentSize.width * i), CGFloat(clampf(Float(brick_pos_y), 0, Float(size.height) * 0.6)))
+    i++
+    _pnode1.addChild(sprite)
+    _bricks.append(sprite)
     }
 
-    brick.position = ccp(brick_pos_x, brick_pos_y)
-    _pnode1.addChild(brick)
-    _bricks.append(brick)
-
     }
     
 
-func randomDistance() -> [CGFloat]{
+    func randomDistance() -> (X: CGFloat, Y : CGFloat, Sign : CGFloat, Count : CGFloat){
         
     var y_min = 0
     var y_max = 30
-    var x_min = 150
-    var x_max = 300
+    var x_min = 100
+    var x_max = 250
     
-    var sign = CGFloat(arc4random_uniform(2) + 1)
-    
-    var result : [CGFloat] = []
-    result.append (CGFloat(x_min + Int(arc4random_uniform(UInt32(x_max - x_min)))))
-        if sign == 1 {
-    result.append (CGFloat(y_min + Int(arc4random_uniform(UInt32(y_max - y_min)))))
-        }
-        else if sign == 2 {
-    result.append (-CGFloat(y_min + Int(arc4random_uniform(UInt32(y_max - y_min)))))
-        }
-    
+    var result : (X: CGFloat, Y : CGFloat, Sign : CGFloat, Count : CGFloat )
+        
+    result.Sign = 0
+        
+    var random_nbr = CGFloat(arc4random_uniform(1))
+        if random_nbr == 0 {
+        result.Sign = CGFloat(-1) }
+        else if random_nbr == 1 {
+        result.Sign = CGFloat(1) }
+        
+    result.Count = CGFloat(arc4random_uniform(2) + 2)
+        
+    result.X = CGFloat(x_min + Int(arc4random_uniform(UInt32(x_max - x_min))))
+        
+    result.Y = CGFloat(y_min + Int(arc4random_uniform(UInt32(y_max - y_min))))
+      
     return result
     }
 
