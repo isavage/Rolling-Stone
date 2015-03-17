@@ -95,14 +95,16 @@ override func update(delta: CCTime) {
     }
     
     // Increase duration since touch to prevent touch action
-   // _sinceTouch += delta
+    _sinceTouch += delta
     
 
     // Clamping hero's velocity
-    /*
-    let velocityY = clampf(Float(_hero.physicsBody.velocity.y), -Float(CGFloat.max), 500)
-    _hero.physicsBody.velocity = ccp(0, CGFloat(velocityY))
-    */
+    
+
+//    let velocityY = clampf(Float(_hero.physicsBody.velocity.y), -Float(CGFloat.max), 500)
+  //  _hero.physicsBody.velocity.y = CGFloat(velocityY)
+    
+    // println(velocityY)
 
     
     for brick in _bricks.reverse() {
@@ -131,16 +133,20 @@ override func update(delta: CCTime) {
     }
 
 override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
-    if (_gameOver == false) {
-    // Touch action .. Checks continuous touches
-    if in_the_air == false {
-    _hero.physicsBody.applyImpulse(ccp(100, 200))
-    _hero.physicsBody.applyAngularImpulse(10000)
-    in_the_air = true
+        _sinceTouch = 0
     }
-   // _sinceTouch = 0
     
-    }
+override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
+        println(_sinceTouch)
+        if (_gameOver == false) {
+            // Touch action .. Checks continuous touches
+            if in_the_air == false {
+                _hero.physicsBody.applyImpulse(ccp(0, CGFloat(clampf(Float(CGFloat(_sinceTouch) * 1000 ),100,200))))
+                _hero.physicsBody.applyAngularImpulse(10000)
+                in_the_air = true
+            }
+            
+        }
     }
 
 func spawnNewBrick() {
@@ -149,7 +155,7 @@ func spawnNewBrick() {
     var prevBrickPosy : CGFloat!
     
     var size : CGSize = CCDirector.sharedDirector().viewSize()
-    println (size)
+    //println (size)
     
     var random_result = self.randomDistance()
     
@@ -227,8 +233,8 @@ func gameOver() {
             _restartText.visible = true
             _scrollSpeed = 0
             _heroSpeed = 0
-            _hero.rotation = 90
-            _hero.physicsBody.allowsRotation = false
+         //   _hero.rotation = 90
+          //  _hero.physicsBody.allowsRotation = false
             
             // just in case
             _hero.stopAllActions()
