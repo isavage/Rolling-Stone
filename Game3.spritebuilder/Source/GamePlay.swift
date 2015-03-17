@@ -133,15 +133,19 @@ override func update(delta: CCTime) {
     }
 
 override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
+    println("touch")
         _sinceTouch = 0
     }
     
 override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
         println(_sinceTouch)
+            println( in_the_air)
         if (_gameOver == false) {
             // Touch action .. Checks continuous touches
             if in_the_air == false {
+                
                 _hero.physicsBody.applyImpulse(ccp(0, CGFloat(clampf(Float(CGFloat(_sinceTouch) * 1000 ),100,200))))
+                println(clampf(Float(CGFloat(_sinceTouch) * 1000),100,200))
                 _hero.physicsBody.applyAngularImpulse(10000)
                 in_the_air = true
             }
@@ -181,7 +185,7 @@ func spawnNewBrick() {
     
     var i : CGFloat = 0
     for sprite in brick{
-    sprite.position = ccp(brick_pos_x + (sprite.contentSize.width * i), CGFloat(clampf(Float(brick_pos_y), 0, Float(size.height) * 0.6)))
+    sprite.position = ccp(brick_pos_x + (0.9 * sprite.contentSize.width * i), CGFloat(clampf(Float(brick_pos_y), 0, Float(size.height) * 0.6)))
     i++
     _pnode1.addChild(sprite)
     _bricks.append(sprite)
@@ -219,6 +223,11 @@ func spawnNewBrick() {
  
 func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero: CCNode!, brick: CCNode!) -> Bool {
     in_the_air = false
+        return true
+    }
+    
+func ccPhysicsCollisionSeparate(pair: CCPhysicsCollisionPair!, hero: CCNode!, brick: CCNode!) -> Bool {
+        in_the_air = true
         return true
     }
 
