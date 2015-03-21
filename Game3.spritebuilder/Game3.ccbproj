@@ -163,7 +163,10 @@
 			<integer>1</integer>
 		</dict>
 		<key>images</key>
-		<dict/>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>versionStr</key>
 	<string>revision : 10891b8575
