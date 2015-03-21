@@ -180,6 +180,14 @@
 				<array>
 					<dict>
 						<key>name</key>
+						<string>visible</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>name</string>
 						<key>type</key>
 						<string>StringSimple</string>
@@ -462,9 +470,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
+							<real>0.34230601787567139</real>
+							<real>0.32093170285224915</real>
 							<real>0.99215692281723022</real>
-							<real>0.97254908084869385</real>
-							<real>0.97254908084869385</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -788,9 +796,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.31876063346862793</real>
-							<real>0.43558546900749207</real>
-							<real>1</real>
+							<real>0.95946580171585083</real>
+							<real>0.96806198358535767</real>
+							<real>0.9816928505897522</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -899,6 +907,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1045,9 +1055,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.48943749070167542</real>
+							<real>0.95806032419204712</real>
 							<real>1</real>
-							<real>0.80807942152023315</real>
+							<real>0.96443229913711548</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -1059,7 +1069,20 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>images/restart.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundColor|Highlighted</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>0.96617287397384644</real>
+							<real>0.59106928110122681</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
