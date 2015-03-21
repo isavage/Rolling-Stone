@@ -28,6 +28,18 @@ class GamePlay: CCNode, CCPhysicsCollisionDelegate {
     var _gameOver = false
     
     var in_the_air : Bool!
+    var _score :CCLabelTTF!
+    var _points : Int = 0
+    var _congrats : CCLabelTTF!
+    
+    let prefs = NSUserDefaults.standardUserDefaults()
+    var highscore : Int!
+    var congrats_off : Bool = true
+    var _time : CCTime = 0
+    
+    var _new_high : Bool = false
+    
+    
     
 func didLoadFromCCB() {
     
@@ -40,8 +52,12 @@ func didLoadFromCCB() {
     _pnode1.collisionDelegate = self
     self.userInteractionEnabled = true
     
+    highscore = prefs.integerForKey("highscore")
+    println("Latest High Score" + String(highscore))
+   
+    
     //_brick_end.physicsBody.sensor = true
-
+    
     
     self.spawnNewBrick()
     self.spawnNewBrick()
@@ -122,6 +138,31 @@ override func update(delta: CCTime) {
             self.spawnNewBrick()
 
             
+        }
+    }
+    
+     _points += Int(_hero.physicsBody.velocity.x/100)
+    _score.string = String(_points)
+    println(_score)
+    
+    
+    
+    if !(_new_high){
+    if _points > highscore  {
+        println("New High")
+       self.congrats("begin")
+        _new_high = true
+    }
+    }
+    
+    
+    if !(congrats_off) {
+        if (_time < 2 ) {
+         _congrats.fontSize =  CGFloat(Int(_congrats.fontSize) + 1)
+            _time += delta }
+        else {
+            congrats_off = true
+            self.congrats("end")
         }
     }
 
@@ -254,10 +295,34 @@ func gameOver() {
             // just in case
             _hero.stopAllActions()
             
+          //  var userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            if _points > highscore {
+            prefs.setValue(_points, forKey: "highscore")
+            prefs.synchronize() // don't forget this!!!!
+            }
+            
+            //prefs.setValue(200, forKey: "highscore")
+            
+            println(highscore)
+            
             var move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.2, position: ccp(0, 4)))
             var moveBack = CCActionEaseBounceOut(action: move.reverse())
             var shakeSequence = CCActionSequence(array: [move, moveBack])
             self.runAction(shakeSequence)
+        }
+    }
+    
+    func congrats(show : String) {
+        println ("congrats")
+        
+        if (show == "begin" ) {
+            _congrats.visible = true
+            congrats_off = false
+            _time = 0
+        }
+        else if (show == "end" ) {
+        _congrats.visible = false
         }
     }
     
