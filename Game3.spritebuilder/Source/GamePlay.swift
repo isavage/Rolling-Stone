@@ -302,7 +302,7 @@ func gameOver() {
             prefs.synchronize() // don't forget this!!!!
             }
             
-            prefs.setValue(200, forKey: "highscore")
+            //prefs.setValue(200, forKey: "highscore")
             
             println(highscore)
             
