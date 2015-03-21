@@ -93,7 +93,7 @@ override func update(delta: CCTime) {
         _scrollSpeed = _scrollSpeed - 1
     }
     else if _scrollSpeed < _hero.physicsBody.velocity.x{
-            _scrollSpeed = _scrollSpeed + 1
+            _scrollSpeed = _scrollSpeed + 2
     }
     
     // Increase duration since touch to prevent touch action
@@ -102,7 +102,7 @@ override func update(delta: CCTime) {
 
     // Clamping hero's velocity
 
-   let velocityY = clampf(Float(_hero.physicsBody.velocity.y), -Float(CGFloat.max), 500)
+   let velocityY = clampf(Float(_hero.physicsBody.velocity.y), -Float(CGFloat.max), 300)
     _hero.physicsBody.velocity.y = CGFloat(velocityY)
     
 
